@@ -1,10 +1,14 @@
 module.exports = (state, emitter) => {
   Object.assign(state, {
     articles: [
-      new Article(1, 'love', {id: 1, name: 'a'}, [{id: 1, name: 'a'}, {id: 2, name: 'b'}]),
-      new Article(2, 'hate', {id: 2, name: 'b'}, [{id: 1, name: 'a'}, {id: 2, name: 'b'}]),
-      new Article(3, 'smile', {id: 2, name: 'b'}, [{id: 3, name: 'c'}, {id: 2, name: 'b'}]),
-      new Article(4, 'sleep', {id: 3, name: 'c'}, [{id: 2, name: 'b'}, {id: 3, name: 'c'}]),
+      new Article(1, 'love', {id: 1, name: 'a'}, 
+      [{id: 1, commentor: {id: 1, name: 'a'}}, {id: 2, commentor: {id: 2, name: 'b'}}]),
+      new Article(2, 'hate', {id: 2, name: 'b'}, 
+      [{id: 3, commentor: {id: 1, name: 'a'}}, {id: 4, commentor: {id: 2, name: 'b'}}]),
+      new Article(3, 'smile', {id: 2, name: 'b'}, 
+      [{id: 5, commentor: {id: 3, name: 'c'}}, {id: 6, commentor: {id: 2, name: 'b'}}]),
+      new Article(4, 'sleep', {id: 3, name: 'c'}, 
+      [{id: 7, commentor: {id: 2, name: 'b'}}, {id: 8, commentor: {id: 3, name: 'c'}}]),
     ]
   })
 
@@ -14,12 +18,12 @@ module.exports = (state, emitter) => {
         data.author.name += ' de'
       }
 
-      data.commentUsers = data.commentUsers.map(user => {
-        if (user.id === id) {
-          user.name += ' de'
+      data.comments = data.comments.map(comment => {
+        if (comment.commentor.id === id) {
+          comment.commentor.name += ' de'
         }   
         
-        return user
+        return comment
       })
 
       return data
@@ -32,12 +36,12 @@ module.exports = (state, emitter) => {
         data.author.name = data.author.name.replace(/ de$/g, '');
       }
 
-      data.commentUsers = data.commentUsers.map(user => {
-        if (user.id === id) {
-          user.name = user.name.replace(/ de$/g, '');
+      data.comments = data.comments.map(comment => {
+        if (comment.commentor.id === id) {
+          comment.commentor.name = comment.commentor.name.replace(/ de$/g, '');
         }   
         
-        return user
+        return comment
       })
 
       return data
@@ -46,10 +50,10 @@ module.exports = (state, emitter) => {
 }
 
 class Article {
-  constructor (id, name, author, commentUsers) {
+  constructor (id, name, author, comments) {
     this.id = id
     this.name = name
     this.author = author
-    this.commentUsers = commentUsers
+    this.comments = comments
   }
 }

@@ -13,15 +13,15 @@ class Article extends Nanocomponent {
   }  
 
   createElement (data) {
-    let commentUsers = data.commentUsers.map(user => html`
-      <span class='mr2' onclick=${this.loseNoble(user.id)}>${user.name} , </span>
+    let comments = data.comments.map(comment => html`
+      <span class='mr2' onclick=${this.loseNoble(comment.commentor.id)}>${comment.commentor.name} , </span>
     `)
 
     return html`
       <li>
         <span>book: ${data.name}</span>
         <p onclick=${this.becomeNoble(data.author.id)}>author: ${data.author.name}</p>
-        <ul class='pl0'>commentUsers: ${commentUsers}</ul>
+        <ul class='pl0'>commentUsers: ${comments}</ul>
       </li>
     `
   }
