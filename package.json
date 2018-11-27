@@ -1,0 +1,27 @@
+{
+  "name": "normalizr-choo-app",
+  "version": "1.0.0",
+  "description": "a demo shows why normalizr is good ",
+  "main": "index.js",
+  "scripts": {
+    "build": "bankai build index.js",
+    "inspect": "bankai inspect index.js",
+    "start": "bankai start index.js"
+  },
+  "author": "zhc",
+  "license": "ISC",
+  "dependencies": {
+    "bankai": "^9.15.0",
+    "choo": "^6.13.1",
+    "normalizr": "^3.3.0",
+    "sheetify": "^7.3.3",
+    "tachyons": "^4.11.1"
+  },
+  "browserify": {
+    "transform": [
+      [
+        "sheetify"
+      ]
+    ]
+  }
+}
