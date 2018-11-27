@@ -13,17 +13,25 @@ class Article extends Nanocomponent {
   }  
 
   createElement (data) {
-    let comments = data.comments.map(comment => html`
-      <span class='mr2' onclick=${this.loseNoble(comment.commentor.id)}>${comment.commentor.name} , </span>
-    `)
+    let comments = data.comments.map(id => {
+      let commentorId = this.state.comments[id].commentor
+
+      return html`
+        <span class='mr2' onclick=${this.loseNoble(commentorId)}>
+          ${this.state.users[commentorId].name} , 
+        </span>
+      `
+    })
 
     return html`
       <li>
         <span>book: ${data.name}</span>
-        <p onclick=${this.becomeNoble(data.author.id)}>author: ${data.author.name}</p>
+        <p onclick=${this.becomeNoble(data.author)}>
+          author: ${this.state.users[data.author].name}
+        </p>
         <ul class='pl0'>commentUsers: ${comments}</ul>
       </li>
-    `
+    `    
   }
 
   becomeNoble (id) {
@@ -53,9 +61,9 @@ class Articles extends Nanocomponent {
   }  
 
   createElement () {
-    let articlesHtml = this.state.articles.map(data => {
+    let articlesHtml = Object.keys(this.state.articles).map((key, index) => {
       let article = new Article(this.state, this.emit)
-      return article.render(data)
+      return article.render(this.state.articles[key])
     })
 
     return html`

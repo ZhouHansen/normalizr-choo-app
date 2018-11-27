@@ -5,6 +5,6 @@ css('tachyons')
 
 let app = choo()
 
-app.use(require('./store'))
+app.use(require('./store').default)
 app.route('/', require('./view'))
 app.mount('body')
