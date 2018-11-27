@@ -36,8 +36,8 @@ module.exports = (state, emitter) => {
   Object.assign(state, initState)
 
   emitter.on('state:becomeNoble', id => {
-    state.users[id].name += ' de'
-  })  
+    state.users[id].name += ' de'    
+  })
 
   emitter.on('state:loseNoble', id => {
     state.users[id].name = state.users[id].name.replace(/ de$/g, '');
